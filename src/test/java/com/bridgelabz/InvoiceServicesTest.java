@@ -75,4 +75,48 @@ InvoiceGenerator invoiceGenerator;
 		InvoiceSummary expected = new InvoiceSummary(3, 570, 190);
 		assertEquals(expected, invoiceSummary);		
 	}
+	
+	@Test
+	public void givenChoice_shouldReturn_TotalFare() {
+		String choice = "Normal";
+		double distance = 20.0;
+		int minute = 15;
+		double fare = invoiceGenerator.calculateFare(choice,distance, minute);
+		assertEquals(215, fare,  0.0);
+			
+	}
+	
+	
+	@Test
+	public void givenChoice_shouldReturn_TotalFareforGivenChoice() {
+		String choice = "Premium";
+		double distance = 10.0;
+		int minute = 5;
+		double fare = invoiceGenerator.calculateFare(choice,distance, minute);
+		assertEquals(160, fare,  0.0);
+			
+	}
+	
+	@Test
+	public void givenUserId_shouldReturn_InvoiceSummary() throws InvalidInputException {
+		String user ="U01";
+		InvoiceRecords invoicerecords = invoiceGenerator.findInvoice(user);
+		InvoiceRecords expected = new InvoiceRecords("U01",3,363,121);
+		assertEquals(expected, invoicerecords);	
+	}
+	
+	@Test
+	public void givenUserId_shouldreturn_InvoiceSummary() throws InvalidInputException {
+		String user ="U04";
+		InvoiceRecords invoicerecords = invoiceGenerator.findInvoice(user);
+		InvoiceRecords expected = new InvoiceRecords("U04",8,480,60);
+		assertEquals(expected, invoicerecords);	
+	}
+	
+	@Test
+	public void givenUserId_shouldReturn_InvalidInputException() throws InvalidInputException {
+		String user =" ";
+		InvoiceRecords invoicerecords = invoiceGenerator.findInvoice(user);
+		assertEquals(null, invoicerecords);	
+	}
 }
